@@ -1,0 +1,128 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --background-alt: #f4f6fa;
+  --foreground: #0d1f3c;
+  --muted: #5a6a7a;
+  --moa-red: #c8102e;
+  --moa-blue: #003da5;
+  --moa-yellow: #ffd100;
+  --card-light-border: #e2e8f0;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-background-alt: var(--background-alt);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-moa-red: var(--moa-red);
+  --color-moa-blue: var(--moa-blue);
+  --color-moa-yellow: var(--moa-yellow);
+  --font-sans: var(--font-inter);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-weight: 400;
+  line-height: 1.65;
+}
+
+html {
+  min-height: 100%;
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+body {
+  min-height: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.glass-card {
+  background: #ffffff;
+  border: 1px solid var(--card-light-border);
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+  transition:
+    border-color 200ms ease,
+    transform 200ms ease,
+    box-shadow 200ms ease;
+}
+
+.glass-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.1);
+}
+
+.dark-card {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  transition:
+    border-color 200ms ease,
+    transform 200ms ease;
+}
+
+.dark-card:hover {
+  transform: translateY(-2px);
+}
+
+.top-accent-red:hover {
+  border-top: 3px solid var(--moa-red);
+}
+
+.top-accent-blue:hover {
+  border-top: 3px solid var(--moa-blue);
+}
+
+.moa-divider {
+  height: 3px;
+  width: 100%;
+  background: linear-gradient(
+    to right,
+    var(--moa-red) 0%,
+    var(--moa-red) 33.33%,
+    var(--moa-blue) 33.33%,
+    var(--moa-blue) 66.66%,
+    var(--moa-yellow) 66.66%,
+    var(--moa-yellow) 100%
+  );
+}
+
+.cta-sweep {
+  background-image: linear-gradient(120deg, var(--moa-red) 0%, var(--moa-red) 50%, var(--moa-blue) 100%);
+  background-size: 220% 100%;
+  background-position: left center;
+  transition:
+    background-position 250ms ease,
+    box-shadow 200ms ease;
+}
+
+.cta-sweep:hover {
+  background-position: right center;
+  box-shadow: 0 8px 18px rgba(0, 61, 165, 0.35);
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 0.7;
+  }
+  70% {
+    transform: translate(-50%, -50%) scale(1.8);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.8);
+    opacity: 0;
+  }
+}
