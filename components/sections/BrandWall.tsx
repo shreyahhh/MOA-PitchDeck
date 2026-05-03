@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion, useInView } from "framer-motion";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const easeBrand: [number, number, number, number] = [0.25, 0.46, 0.45, 0.94];
 
@@ -50,7 +50,6 @@ type TenantStory = {
 
 /** Tenant proof carousel — slow fade between stories */
 const TENANT_STORY_HOLD_MS = 10000;
-const TENANT_STORY_FADE_S = 1.35;
 
 const tenantStories: TenantStory[] = [
   {
@@ -248,7 +247,6 @@ function TenantSuccessStories() {
 export default function BrandWall() {
   // carousel state kept for easy re-enable
   const [activeIndex] = useState(2);
-  const carouselVideoRefs = useRef<Map<number, HTMLVideoElement>>(new Map());
   const [secondaryVideoIndex, setSecondaryVideoIndex] = useState(0);
   const secondarySectionRef = useRef<HTMLElement>(null);
   const [isSecondaryVisible, setIsSecondaryVisible] = useState(false);
@@ -393,19 +391,6 @@ export default function BrandWall() {
     secondaryEndedGuardRef.current = true;
     setSecondaryVideoIndex((prev) => (prev + 1) % luxuryVideos.length);
   };
-
-  const ordered = useMemo(() => {
-    return carouselVideos.map((video, index) => {
-      const rawOffset = index - activeIndex;
-      const wrappedOffset =
-        rawOffset > carouselVideos.length / 2
-          ? rawOffset - carouselVideos.length
-          : rawOffset < -carouselVideos.length / 2
-            ? rawOffset + carouselVideos.length
-            : rawOffset;
-      return { ...video, index, offset: wrappedOffset };
-    });
-  }, [activeIndex]);
 
   return (
     <>

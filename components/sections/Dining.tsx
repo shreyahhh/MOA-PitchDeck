@@ -155,7 +155,7 @@ export default function Dining() {
               50+ Culinary<br />Experiences
             </h2>
             <p className="mt-4 text-[15px] leading-relaxed text-[#5A6A7A]">
-              From Michelin-cited chef tables to beloved fast-casual brands — MOA's dining scene is a destination in itself, not an afterthought.
+              From Michelin-cited chef tables to beloved fast-casual brands — MOA&apos;s dining scene is a destination in itself, not an afterthought.
             </p>
           </div>
           <div className="grid grid-cols-2 gap-6 border-t border-[#E2E8F0] pt-8">
