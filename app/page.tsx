@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { useEffect, useMemo, useRef, useState } from "react";
 import Sidebar from "../components/nav/Sidebar";
 import Attractions from "../components/sections/Attractions";
@@ -26,6 +27,7 @@ const NAV_ITEMS = [
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState("overview");
+  const [introComplete, setIntroComplete] = useState(false);
   const [mouse, setMouse] = useState({ x: -500, y: -500 });
   const sectionIds = useMemo(() => NAV_ITEMS.map((item) => item.id), []);
   const sectionRefs = useRef<(HTMLElement | null)[]>([]);
@@ -75,7 +77,15 @@ export default function Home() {
           style={{ left: mouse.x, top: mouse.y }}
         />
       </div>
-      <Sidebar items={NAV_ITEMS} activeId={activeSection} onSelect={scrollToSection} />
+      {/* Intro overlay — sits between sidebar (z-56) and main (z-10), fades out after intro */}
+      <motion.div
+        className="pointer-events-none fixed inset-0 z-[54] bg-[#06090F]"
+        initial={{ opacity: 1 }}
+        animate={{ opacity: introComplete ? 0 : 1 }}
+        transition={{ duration: 0.9, ease: [0.25, 0.46, 0.45, 0.94] }}
+      />
+
+      <Sidebar items={NAV_ITEMS} activeId={activeSection} onSelect={scrollToSection} onIntroComplete={() => setIntroComplete(true)} />
 
       <main className="relative z-10 overflow-x-hidden">
         <Hero />

@@ -198,7 +198,7 @@ export default function WhyMOA() {
           className="mt-6 flex flex-col gap-2 md:flex-row md:items-end md:justify-between"
         >
           <div>
-            <h2 className="mt-4 text-5xl font-bold leading-tight tracking-[-2px] text-white md:text-[56px]">
+            <h2 className="mt-4 font-bold leading-tight tracking-[-2px] text-white" style={{ fontSize: "clamp(32px, 4vw, 56px)" }}>
               The audience behind the numbers.
             </h2>
             <p className="mt-3 text-lg font-light text-white/40">
@@ -224,7 +224,7 @@ export default function WhyMOA() {
               key={tab.id}
               type="button"
               onClick={() => setActiveTab(tab.id)}
-              className="relative px-5 pb-4 pt-2 text-[13px] font-medium transition-colors duration-200 focus-visible:outline-none"
+              className="relative cursor-pointer px-5 pb-4 pt-2 text-[13px] font-medium transition-colors duration-200 focus-visible:outline-none"
               style={{ color: activeTab === tab.id ? "#ffffff" : "rgba(255,255,255,0.35)" }}
             >
               {tab.label}
@@ -239,7 +239,7 @@ export default function WhyMOA() {
           ))}
         </motion.div>
 
-        <div className="relative mt-10 flex-1" style={{ minHeight: "320px" }}>
+        <div className="relative mt-10 flex-1" style={{ minHeight: "clamp(220px, 30vh, 420px)" }}>
           <AnimatePresence mode="wait">
             {activeTab === "origin" && <OriginViz active={activeTab === "origin"} />}
             {activeTab === "age" && <AgeViz active={activeTab === "age"} />}

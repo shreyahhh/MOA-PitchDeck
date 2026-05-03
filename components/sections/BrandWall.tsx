@@ -77,7 +77,7 @@ const tenantStories: TenantStory[] = [
     statLabel: "Annual Store Visitors",
     quote: "Experiential flagship with in-store café drives 40% longer dwell time.",
     videoSrc: "/brand/lululemon.mp4",
-    accentColor: "#FFFFFF",
+    accentColor: "#00A89D",
   },
   {
     id: "nordstrom",
@@ -107,15 +107,23 @@ const tenantStories: TenantStory[] = [
 function TenantSuccessStories() {
   const nStories = tenantStories.length;
   const [storyIndex, setStoryIndex] = useState(0);
+  const [progress, setProgress] = useState(0);
   const blockRef = useRef<HTMLDivElement>(null);
   const isBlockInView = useInView(blockRef, { amount: 0.15, margin: "-60px" });
 
   useEffect(() => {
     if (!isBlockInView) return;
-    const id = window.setInterval(() => {
-      setStoryIndex((i) => (i + 1) % nStories);
-    }, TENANT_STORY_HOLD_MS);
-    return () => window.clearInterval(id);
+    setProgress(0);
+    const start = Date.now();
+    const tick = window.setInterval(() => {
+      const p = Math.min(100, ((Date.now() - start) / TENANT_STORY_HOLD_MS) * 100);
+      setProgress(p);
+      if (p >= 100) {
+        window.clearInterval(tick);
+        setStoryIndex((i) => (i + 1) % nStories);
+      }
+    }, 40);
+    return () => window.clearInterval(tick);
   }, [isBlockInView, storyIndex, nStories]);
 
   const tenant = tenantStories[storyIndex];
@@ -155,14 +163,17 @@ function TenantSuccessStories() {
         {/* Header */}
         <div className="shrink-0">
           <p className="text-[11px] uppercase tracking-[0.36em] text-[#C8102E]">
-            PROOF OF PERFORMANCE
+            04 BRAND WALL
           </p>
           <h2
-            className="mt-3 font-bold leading-[1.15] tracking-[-1px] text-white"
-            style={{ fontSize: "clamp(20px, 2.2vw, 30px)" }}
+            className="mt-3 font-bold leading-[1.1] tracking-[-2px] text-white"
+            style={{ fontSize: "clamp(28px, 3.5vw, 48px)" }}
           >
-            The brands that chose MOA and never left.
+            520+ World-Class Brands
           </h2>
+          <p className="mt-2 text-[14px] font-light text-white/40">
+            The brands that chose MOA and never left.
+          </p>
         </div>
 
         {/* Brand content vertically centered */}
@@ -218,21 +229,80 @@ function TenantSuccessStories() {
 
         {/* Brand selector tabs */}
         <div className="mt-8 flex shrink-0 flex-wrap gap-2">
-          {tenantStories.map((s, i) => (
-            <button
-              key={s.id}
-              type="button"
-              onClick={() => setStoryIndex(i)}
-              className="rounded-full border px-4 py-1.5 text-[11px] font-medium uppercase tracking-[0.2em] transition-all duration-300 focus-visible:outline-none"
-              style={
-                i === storyIndex
-                  ? { background: s.accentColor === "#FFFFFF" ? "rgba(255,255,255,0.15)" : s.accentColor, borderColor: s.accentColor, color: "#fff" }
-                  : { background: "transparent", borderColor: "rgba(255,255,255,0.15)", color: "rgba(255,255,255,0.4)" }
-              }
-            >
-              {s.brand}
-            </button>
-          ))}
+          {tenantStories.map((s, i) => {
+            const isActive = i === storyIndex;
+            const isLightAccent = s.accentColor === "#FFD100";
+            const fillBg = s.accentColor;
+            const textOnFill = isLightAccent ? "#111111" : "#ffffff";
+            return (
+              <button
+                key={s.id}
+                type="button"
+                onClick={() => setStoryIndex(i)}
+                className="relative cursor-pointer overflow-hidden rounded-full focus-visible:outline-none"
+                style={{
+                  padding: "6px 16px",
+                  border: isActive ? `1px solid ${s.accentColor}` : "none",
+                  transition: "border-color 0.3s ease",
+                }}
+              >
+                {/* Fill bar */}
+                {isActive && (
+                  <div
+                    style={{
+                      position: "absolute",
+                      left: 0, top: 0, bottom: 0,
+                      width: `${progress}%`,
+                      background: fillBg,
+                      transition: "width 0.04s linear",
+                    }}
+                  />
+                )}
+
+                {/* Base text — brand color when active, dimmed when inactive */}
+                <span
+                  style={{
+                    position: "relative",
+                    zIndex: 1,
+                    display: "block",
+                    fontSize: "11px",
+                    fontWeight: 500,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.2em",
+                    whiteSpace: "nowrap",
+                    color: isActive ? s.accentColor : "#ffffff",
+                  }}
+                >
+                  {s.brand}
+                </span>
+
+                {/* Overlay text clipped to filled area — contrasting color */}
+                {isActive && (
+                  <span
+                    aria-hidden
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      fontSize: "11px",
+                      fontWeight: 500,
+                      textTransform: "uppercase",
+                      letterSpacing: "0.2em",
+                      whiteSpace: "nowrap",
+                      color: textOnFill,
+                      clipPath: `inset(0 ${100 - progress}% 0 0)`,
+                      zIndex: 2,
+                      pointerEvents: "none",
+                    }}
+                  >
+                    {s.brand}
+                  </span>
+                )}
+              </button>
+            );
+          })}
         </div>
       </div>
     </div>
@@ -388,20 +458,6 @@ export default function BrandWall() {
 
   return (
     <>
-      <section
-        id="brands"
-        className="w-full bg-[#07090F] px-[80px] pb-0 pt-[72px] max-md:px-8"
-      >
-        <div>
-          <p className="text-[11px] uppercase tracking-[0.36em] text-[#C8102E]">04 BRAND WALL</p>
-          <h2 className="mt-4 text-5xl font-bold tracking-[-2px] text-white md:text-[56px]">
-            520+ World-Class Brands
-          </h2>
-          <p className="mt-3 text-[15px] font-light text-white/40">
-            Proof of performance from the brands that chose MOA and never left.
-          </p>
-        </div>
-      </section>
       <TenantSuccessStories />
       <section ref={secondarySectionRef} className="h-[105svh] w-full overflow-hidden bg-black">
         <div className="relative h-full w-full overflow-hidden">
@@ -422,7 +478,7 @@ export default function BrandWall() {
                 autoPlay={isSecondaryVisible}
                 muted
                 playsInline
-                preload="metadata"
+                preload={isSecondaryVisible ? "auto" : "none"}
                 onEnded={advanceSecondaryVideo}
               />
             </div>
@@ -437,7 +493,7 @@ export default function BrandWall() {
                 autoPlay={isSecondaryVisible}
                 muted
                 playsInline
-                preload="metadata"
+                preload={isSecondaryVisible ? "auto" : "none"}
                 onEnded={advanceSecondaryVideo}
               />
             </div>

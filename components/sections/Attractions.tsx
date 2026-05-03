@@ -20,6 +20,15 @@ const list = [
 
 const DURATION = 6000;
 
+function hexToRgba(hex: string, alpha: number) {
+  const n = hex.replace("#", "");
+  if (n.length !== 6) return `rgba(255,255,255,${alpha})`;
+  const r = Number.parseInt(n.slice(0, 2), 16);
+  const g = Number.parseInt(n.slice(2, 4), 16);
+  const b = Number.parseInt(n.slice(4, 6), 16);
+  return `rgba(${r},${g},${b},${alpha})`;
+}
+
 export default function Attractions() {
   const [active, setActive] = useState(0);
   const [progress, setProgress] = useState(0);
@@ -43,7 +52,8 @@ export default function Attractions() {
   return (
     <section
       id="attractions"
-      className="h-screen overflow-hidden flex flex-row bg-[#06090F] px-[80px] py-[64px] gap-12 max-md:px-8"
+      className="h-screen overflow-hidden flex flex-row bg-[#06090F] px-[80px] max-md:px-8"
+      style={{ paddingTop: "clamp(32px, 5vh, 64px)", paddingBottom: "clamp(32px, 5vh, 64px)", gap: "clamp(24px, 4vw, 64px)" }}
     >
       {/* ── LEFT: heading + full attraction list ── */}
       <div className="flex flex-col shrink-0 justify-between" style={{ width: "42%" }}>
@@ -57,7 +67,7 @@ export default function Attractions() {
             <p className="text-[11px] uppercase tracking-[0.36em] text-[#C8102E]">
               05 ATTRACTIONS
             </p>
-            <h2 className="mt-4 text-5xl font-bold tracking-[-2px] text-white md:text-[56px] leading-tight">
+            <h2 className="mt-4 font-bold tracking-[-2px] text-white leading-tight" style={{ fontSize: "clamp(32px, 4vw, 56px)" }}>
               A City Within a City
             </h2>
             <p className="mt-3 text-[14px] leading-relaxed text-white/45 max-w-sm">
@@ -202,63 +212,44 @@ export default function Attractions() {
           </AnimatePresence>
         </div>
 
-        {/* Tab controls below the video */}
-        <div
-          className="flex shrink-0 overflow-hidden"
-          style={{ borderRadius: "8px", border: "1px solid rgba(255,255,255,0.07)" }}
-        >
-          {mediaSlides.map((s, i) => (
-            <button
-              key={s.id}
-              onClick={() => setActive(i)}
-              style={{
-                flex: 1,
-                padding: "12px 16px",
-                background: i === active ? "rgba(255,255,255,0.05)" : "transparent",
-                border: "none",
-                borderRight:
-                  i < mediaSlides.length - 1
-                    ? "1px solid rgba(255,255,255,0.07)"
-                    : "none",
-                cursor: "pointer",
-                textAlign: "left",
-                position: "relative",
-                transition: "background 0.3s ease",
-              }}
-            >
-              <span style={{
-                fontFamily: "'Inter', sans-serif",
-                fontSize: "11px", fontWeight: 500,
-                letterSpacing: "1.5px", textTransform: "uppercase",
-                color: i === active ? "rgba(255,255,255,0.85)" : "rgba(255,255,255,0.25)",
-                transition: "color 0.3s ease",
-              }}>
-                {s.name}
-              </span>
-              {/* Progress bar */}
-              <div
+        {/* Tab controls */}
+        <div role="tablist" aria-label="Choose attraction video" className="flex w-full shrink-0 gap-2">
+          {mediaSlides.map((s, i) => {
+            const isOn = i === active;
+            const isLight = s.accent === "#FFD100";
+            const textOnFill = isLight ? "#111111" : "#ffffff";
+            return (
+              <button
+                key={s.id}
+                type="button"
+                role="tab"
+                aria-selected={isOn}
+                onClick={() => setActive(i)}
+                className="relative flex-1 overflow-hidden focus-visible:outline-none"
                 style={{
-                  position: "absolute",
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  height: "2px",
-                  background: "rgba(255,255,255,0.04)",
+                  padding: "6px 16px",
+                  cursor: "pointer",
+                  border: isOn ? `1px solid ${s.accent}` : "1px solid transparent",
+                  transition: "border-color 0.3s ease",
                 }}
               >
-                {i === active && (
-                  <div
-                    style={{
-                      height: "100%",
-                      width: `${progress}%`,
-                      background: s.accent,
-                      transition: "width 0.04s linear",
-                    }}
-                  />
+                {/* Fill bar */}
+                {isOn && (
+                  <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: `${progress}%`, background: s.accent, transition: "width 0.04s linear" }} />
                 )}
-              </div>
-            </button>
-          ))}
+                {/* Base text */}
+                <span style={{ position: "relative", zIndex: 1, display: "block", fontSize: "11px", fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.2em", whiteSpace: "nowrap", color: isOn ? s.accent : "#ffffff" }}>
+                  {s.name}
+                </span>
+                {/* Overlay text clipped to fill */}
+                {isOn && (
+                  <span aria-hidden style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "11px", fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.2em", whiteSpace: "nowrap", color: textOnFill, clipPath: `inset(0 ${100 - progress}% 0 0)`, zIndex: 2, pointerEvents: "none" }}>
+                    {s.name}
+                  </span>
+                )}
+              </button>
+            );
+          })}
         </div>
       </div>
     </section>

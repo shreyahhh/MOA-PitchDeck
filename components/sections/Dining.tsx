@@ -12,7 +12,7 @@ const diningStats = [
 ];
 
 const outerPlates = ["/food/1.png","/food/2.png","/food/3.png","/food/4.png","/food/5.png","/food/6.png","/food/7.png"];
-const innerPlates = ["/food/8.png","/food/9.png","/food/10.png","/food/11.png","/food/12.png","/food/13.png"];
+const innerPlates = ["/food/14.webp","/food/9.png","/food/10.png","/food/15.png","/food/12.png","/food/16.png"];
 
 const OUTER_R = 300, INNER_R = 95, OUTER_SIZE = 190, INNER_SIZE = 165;
 const W = OUTER_R * 2 + OUTER_SIZE, H = W;
@@ -53,7 +53,7 @@ function RestaurantTicker() {
   }, []);
   return (
     <div>
-      <p className="mb-3 text-[11px] uppercase tracking-[0.28em] text-[#8899AA]">Featured Restaurants</p>
+      <p className="mb-3 text-[11px] uppercase tracking-[0.28em] text-white/40">Featured Restaurants</p>
       <div style={{ height: 96, overflow: "hidden", position: "relative" }}>
         <AnimatePresence mode="wait">
           <motion.div
@@ -66,8 +66,10 @@ function RestaurantTicker() {
           >
             {restaurantGroups[idx].map(r => (
               <div key={r.name} style={{ display: "flex", alignItems: "center", gap: 8, flex: 1, minWidth: 0 }}>
-                <img src={r.icon} alt={r.name} style={{ width: 56, height: 56, borderRadius: 10, objectFit: "cover", flexShrink: 0, border: "1px solid #E2E8F0" }} loading="lazy" />
-                <span style={{ fontSize: 13, fontWeight: 600, color: "#0D1F3C", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{r.name}</span>
+                <div style={{ width: 56, height: 56, flexShrink: 0, borderRadius: 10, background: "#ffffff", overflow: "hidden" }}>
+                  <img src={r.icon} alt={r.name} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", mixBlendMode: "multiply" }} loading="lazy" />
+                </div>
+                <span style={{ fontSize: 13, fontWeight: 600, color: "#ffffff", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{r.name}</span>
               </div>
             ))}
           </motion.div>
@@ -81,7 +83,7 @@ export default function Dining() {
   return (
     <section
       id="dining"
-      className="min-h-[100svh] bg-white px-[80px] py-[80px] max-md:px-8"
+      className="min-h-[100svh] bg-[#07090F] px-[80px] py-[80px] max-md:px-8"
       style={{ position: "relative", overflow: "hidden", width: "100%" }}
     >
       <style>{`
@@ -102,8 +104,9 @@ export default function Dining() {
         opacity: 0.18, pointerEvents: "none", zIndex: 0,
       }} />
 
-      {/* Two nested rings right side, clipped */}
+      {/* Two nested rings right side, clipped — hidden on mobile */}
       <motion.div
+        className="max-md:hidden"
         style={{ position: "absolute", right: -(OUTER_R + OUTER_SIZE / 2), top: "50%", marginTop: -(H / 2), width: W, height: H, zIndex: 1 }}
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -142,7 +145,7 @@ export default function Dining() {
       {/* Main content */}
       <div style={{ position: "relative", zIndex: 1 }}>
         <motion.div
-          className="flex flex-col gap-8"
+          className="flex flex-col gap-8 max-md:!pr-0"
           style={{ paddingRight: "340px" }}
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -151,18 +154,18 @@ export default function Dining() {
         >
           <div>
             <p className="text-[11px] uppercase tracking-[0.36em] text-[#C8102E]">06 DINING & LIFESTYLE</p>
-            <h2 className="mt-4 text-5xl font-bold tracking-[-2px] text-[#0D1F3C] md:text-[56px]">
+            <h2 className="mt-4 text-5xl font-bold tracking-[-2px] text-white md:text-[56px]">
               50+ Culinary<br />Experiences
             </h2>
-            <p className="mt-4 text-[15px] leading-relaxed text-[#5A6A7A]">
+            <p className="mt-4 text-[15px] leading-relaxed text-white/55">
               From Michelin-cited chef tables to beloved fast-casual brands MOA&apos;s dining scene is a destination in itself, not an afterthought.
             </p>
           </div>
-          <div className="grid grid-cols-2 gap-6 border-t border-[#E2E8F0] pt-8">
+          <div className="grid grid-cols-2 gap-6 border-t border-white/10 pt-8">
             {diningStats.map(s => (
               <div key={s.label}>
-                <p className="text-4xl font-bold tracking-[-1px] text-[#0D1F3C]">{s.value}</p>
-                <p className="mt-1 text-[12px] uppercase tracking-[0.2em] text-[#8899AA]">{s.label}</p>
+                <p className="text-4xl font-bold tracking-[-1px] text-white">{s.value}</p>
+                <p className="mt-1 text-[12px] uppercase tracking-[0.2em] text-white/40">{s.label}</p>
               </div>
             ))}
           </div>

@@ -50,22 +50,27 @@ const stats = [
 export default function Retail() {
   const [hoveredTier, setHoveredTier] = useState<string | null>(null)
 
-  const getPanelWidth = (tierId: string) => {
-    if (!hoveredTier) return '25%'
-    if (hoveredTier === tierId) return '40%'
-    return '20%'
+  /** Grid `fr` tracks always fill the row; percentage widths + transition rounded independently and left a gap on the right. */
+  const panelGridColumns = hoveredTier
+    ? tiers.map((t) => (hoveredTier === t.id ? '2fr' : '1fr')).join(' ')
+    : 'minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr)'
+
+  const breakoutBleed = {
+    width: '100vw' as const,
+    marginLeft: 'calc(50% - 50vw)' as const,
+    marginRight: 'calc(50% - 50vw)' as const,
   }
 
   return (
     <section
       id="retail"
-      className="h-screen overflow-hidden flex flex-col bg-white px-[80px] pt-6 max-md:px-8"
+      className="h-screen overflow-hidden flex flex-col bg-[#07090F] px-[80px] pt-6 max-md:px-8"
     >
       {/* Header */}
       <div className="flex items-end justify-between shrink-0">
         <div>
           <p className="text-[11px] uppercase tracking-[0.36em] text-[#C8102E]">03 RETAIL & LEASING</p>
-          <h2 className="mt-4 text-5xl font-bold tracking-[-2px] text-[#0D1F3C] md:text-[56px] leading-tight">
+          <h2 className="mt-4 text-5xl font-bold tracking-[-2px] text-white md:text-[56px] leading-tight">
             Precision Leasing for Every Growth Stage
           </h2>
         </div>
@@ -75,27 +80,26 @@ export default function Retail() {
       <div
         className="shrink-0"
         style={{
-          width: '100vw',
-          marginLeft: 'calc(-50vw + 50%)',
+          ...breakoutBleed,
           marginTop: '20px',
-          borderTop: '1px solid #E2E8F0',
-          borderBottom: '1px solid #E2E8F0',
+          borderTop: '1px solid rgba(255,255,255,0.08)',
+          borderBottom: '1px solid rgba(255,255,255,0.08)',
           display: 'flex',
           alignItems: 'stretch',
         }}
       >
-        <div style={{ flex: '1 1 0', padding: '14px 80px', borderRight: '1px solid #E2E8F0' }}>
-          <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '10px', letterSpacing: '0.3em', textTransform: 'uppercase', color: '#8899AA', margin: 0 }}>
+        <div style={{ flex: '1 1 0', padding: 'clamp(14px, 2vh, 18px) clamp(24px, 5vw, 80px)', borderRight: '1px solid rgba(255,255,255,0.08)' }}>
+          <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '10px', letterSpacing: '0.3em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.35)', margin: 0 }}>
             Why brands stay
           </p>
-          <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '15px', fontWeight: 700, color: '#0D1F3C', margin: '4px 0 0', lineHeight: 1.3 }}>
+          <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '15px', fontWeight: 700, color: '#ffffff', margin: '4px 0 0', lineHeight: 1.3 }}>
             Average tenure at MOA is <span style={{ color: '#C8102E' }}>11 years</span>
           </p>
         </div>
         {stats.map((s, i) => (
-          <div key={s.label} style={{ flex: '0 0 auto', padding: '14px 40px', borderRight: i < stats.length - 1 ? '1px solid #E2E8F0' : 'none', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-            <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '22px', fontWeight: 700, color: '#0D1F3C', margin: 0, lineHeight: 1 }}>{s.value}</p>
-            <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '10px', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#8899AA', margin: '4px 0 0' }}>{s.label}</p>
+          <div key={s.label} style={{ flex: '0 0 auto', padding: 'clamp(14px, 2vh, 18px) clamp(16px, 3vw, 40px)', borderRight: i < stats.length - 1 ? '1px solid rgba(255,255,255,0.08)' : 'none', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+            <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '22px', fontWeight: 700, color: '#ffffff', margin: 0, lineHeight: 1 }}>{s.value}</p>
+            <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '10px', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.35)', margin: '4px 0 0' }}>{s.label}</p>
           </div>
         ))}
       </div>
@@ -104,12 +108,12 @@ export default function Retail() {
       <div style={{ flex: 1, marginTop: '0', minHeight: 0 }}>
         <div
           style={{
-            display: 'flex',
-            flexDirection: 'row',
-            width: '100vw',
-            marginLeft: 'calc(-50vw + 50%)',
+            display: 'grid',
+            gridTemplateColumns: panelGridColumns,
+            ...breakoutBleed,
             height: '100%',
             overflow: 'hidden',
+            transition: 'grid-template-columns 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
           }}
         >
           {tiers.map((tier) => {
@@ -121,12 +125,10 @@ export default function Retail() {
                 onMouseLeave={() => setHoveredTier(null)}
                 style={{
                   position: 'relative',
-                  width: getPanelWidth(tier.id),
+                  minWidth: 0,
                   height: '100%',
                   overflow: 'hidden',
-                  transition: 'width 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
                   cursor: 'pointer',
-                  flexShrink: 0,
                 }}
               >
                 {/* Background image */}
@@ -137,7 +139,7 @@ export default function Retail() {
                     backgroundImage: `url(${tier.image})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
-                    transform: isHovered ? 'scale(1.02)' : 'scale(1)',
+                    transform: isHovered ? 'scale(1.07)' : 'scale(1.03)',
                     transition: 'transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
                   }}
                 />
