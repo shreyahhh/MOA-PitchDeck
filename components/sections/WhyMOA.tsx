@@ -34,13 +34,13 @@ function OriginViz({ active }: { active: boolean }) {
           <span className="text-sm text-white/50">Within driving distance of MOA</span>
         </div>
         <div className="flex flex-col gap-2">
-          <span className="text-[11px] uppercase tracking-[0.3em] text-[#C8102E]">Out-of-State Tourists</span>
+          <span className="text-[11px] uppercase tracking-[0.3em] text-[#FFD700]">Out-of-State Tourists</span>
           <div className="flex items-end gap-3">
-            <span className="font-bold leading-none tracking-[-4px] text-[#C8102E]" style={{ fontSize: "clamp(80px,14vw,160px)" }}>
+            <span className="font-bold leading-none tracking-[-4px] text-[#FFD700]" style={{ fontSize: "clamp(80px,14vw,160px)" }}>
               {active ? <CountUp end={40} suffix="%" durationMs={1200} /> : "40%"}
             </span>
           </div>
-          <span className="text-sm text-[#C8102E]/70">Destination visitors, not passersby</span>
+          <span className="text-sm text-[#FFD700]/70">Destination visitors, not passersby</span>
         </div>
       </div>
       <div className="h-3 w-full overflow-hidden rounded-full bg-white/10">

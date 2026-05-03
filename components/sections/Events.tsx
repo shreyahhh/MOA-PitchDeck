@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 
 // Swap src below for a dedicated events highlight reel when available
-const VIDEO_SRC = "https://www.youtube-nocookie.com/embed/oIoBwLK8JqM?autoplay=1&mute=1&loop=1&controls=0&showinfo=0&rel=0&playsinline=1&playlist=oIoBwLK8JqM&modestbranding=1&iv_load_policy=3";
+const VIDEO_SRC = "https://www.youtube-nocookie.com/embed/5NFICD4CJh8?autoplay=1&mute=1&loop=1&controls=0&showinfo=0&rel=0&playsinline=1&playlist=5NFICD4CJh8&modestbranding=1&iv_load_policy=3";
 
 const eventTypes = [
   "Product Launches",
