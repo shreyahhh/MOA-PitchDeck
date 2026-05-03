@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 
 const easeBrand: [number, number, number, number] = [0.25, 0.46, 0.45, 0.94];
 
-/** Brand story loop — match Hero slide / exit timing */
+/** Brand story loop match Hero slide / exit timing */
 const BRAND_INTRO_DELAY_S = 0.8;
 const BRAND_MOTION_DURATION_S = 0.7;
 const BRAND_INTRO_HOLD_MS = 2200;
@@ -42,7 +42,7 @@ type TenantStory = {
   accentColor: string;
 };
 
-/** Tenant proof carousel — slow fade between stories */
+/** Tenant proof carousel slow fade between stories */
 const TENANT_STORY_HOLD_MS = 10000;
 
 const tenantStories: TenantStory[] = [
@@ -126,7 +126,7 @@ function TenantSuccessStories() {
       className="relative w-full overflow-hidden bg-[#07090F]"
       style={{ minHeight: "min(100svh, 900px)" }}
     >
-      {/* Full-height video — right half */}
+      {/* Full-height video right half */}
       <div className="absolute inset-y-0 right-0 w-full lg:w-[52%]">
         <AnimatePresence mode="wait">
           <motion.video
@@ -135,6 +135,7 @@ function TenantSuccessStories() {
             muted
             loop
             playsInline
+            preload="metadata"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -149,8 +150,8 @@ function TenantSuccessStories() {
         <div className="absolute bottom-0 left-0 right-0 h-2/3 bg-gradient-to-t from-[#07090F] via-[#07090F]/80 to-transparent lg:hidden" />
       </div>
 
-      {/* Content — left half */}
-      <div className="relative z-10 flex h-full min-h-[inherit] flex-col px-[64px] py-[64px] max-md:px-8 lg:max-w-[52%]">
+      {/* Content left half */}
+      <div className="relative z-10 flex h-full min-h-[inherit] flex-col px-[80px] py-[80px] max-md:px-8 lg:max-w-[52%]">
         {/* Header */}
         <div className="shrink-0">
           <p className="text-[11px] uppercase tracking-[0.36em] text-[#C8102E]">
@@ -160,11 +161,11 @@ function TenantSuccessStories() {
             className="mt-3 font-bold leading-[1.15] tracking-[-1px] text-white"
             style={{ fontSize: "clamp(20px, 2.2vw, 30px)" }}
           >
-            The brands that chose MOA — and never left.
+            The brands that chose MOA and never left.
           </h2>
         </div>
 
-        {/* Brand content — vertically centered */}
+        {/* Brand content vertically centered */}
         <div className="flex flex-1 items-center">
           <AnimatePresence mode="wait">
             <motion.div
@@ -251,7 +252,7 @@ export default function BrandWall() {
   const [trioExiting, setTrioExiting] = useState(false);
   const [brandCopyCycle, setBrandCopyCycle] = useState(0);
 
-  /* carousel interval — disabled */
+  /* carousel interval disabled */
   // useEffect(() => {
   //   const intervalId = window.setInterval(() => {
   //     setActiveIndex((prev) => (prev + 1) % carouselVideos.length);
@@ -259,7 +260,7 @@ export default function BrandWall() {
   //   return () => window.clearInterval(intervalId);
   // }, []);
 
-  /* carousel play/pause — disabled */
+  /* carousel play/pause disabled */
   // useEffect(() => {
   //   carouselVideoRefs.current.forEach((videoEl, idx) => {
   //     if (idx === activeIndex) { videoEl.loop = true; void videoEl.play().catch(() => {}); }
@@ -391,13 +392,13 @@ export default function BrandWall() {
         id="brands"
         className="w-full bg-[#07090F] px-[80px] pb-0 pt-[72px] max-md:px-8"
       >
-        <div className="mx-auto max-w-6xl">
-          <p className="text-[11px] uppercase tracking-[0.36em] text-[#C8102E]">04 — BRAND WALL</p>
+        <div>
+          <p className="text-[11px] uppercase tracking-[0.36em] text-[#C8102E]">04 BRAND WALL</p>
           <h2 className="mt-4 text-5xl font-bold tracking-[-2px] text-white md:text-[56px]">
             520+ World-Class Brands
           </h2>
           <p className="mt-3 text-[15px] font-light text-white/40">
-            Proof of performance from the brands that chose MOA — and never left.
+            Proof of performance from the brands that chose MOA and never left.
           </p>
         </div>
       </section>
@@ -421,7 +422,7 @@ export default function BrandWall() {
                 autoPlay={isSecondaryVisible}
                 muted
                 playsInline
-                preload="auto"
+                preload="metadata"
                 onEnded={advanceSecondaryVideo}
               />
             </div>
@@ -436,7 +437,7 @@ export default function BrandWall() {
                 autoPlay={isSecondaryVisible}
                 muted
                 playsInline
-                preload="auto"
+                preload="metadata"
                 onEnded={advanceSecondaryVideo}
               />
             </div>

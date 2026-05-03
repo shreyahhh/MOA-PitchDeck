@@ -102,7 +102,7 @@ export default function Dining() {
         opacity: 0.18, pointerEvents: "none", zIndex: 0,
       }} />
 
-      {/* Two nested rings — right side, clipped */}
+      {/* Two nested rings right side, clipped */}
       <motion.div
         style={{ position: "absolute", right: -(OUTER_R + OUTER_SIZE / 2), top: "50%", marginTop: -(H / 2), width: W, height: H, zIndex: 1 }}
         initial={{ opacity: 0 }}
@@ -140,7 +140,7 @@ export default function Dining() {
       </motion.div>
 
       {/* Main content */}
-      <div className="mx-auto max-w-6xl" style={{ position: "relative", zIndex: 1 }}>
+      <div style={{ position: "relative", zIndex: 1 }}>
         <motion.div
           className="flex flex-col gap-8"
           style={{ paddingRight: "340px" }}
@@ -150,12 +150,12 @@ export default function Dining() {
           transition={{ duration: 0.7 }}
         >
           <div>
-            <p className="text-[11px] uppercase tracking-[0.36em] text-[#C8102E]">06 — DINING & LIFESTYLE</p>
+            <p className="text-[11px] uppercase tracking-[0.36em] text-[#C8102E]">06 DINING & LIFESTYLE</p>
             <h2 className="mt-4 text-5xl font-bold tracking-[-2px] text-[#0D1F3C] md:text-[56px]">
               50+ Culinary<br />Experiences
             </h2>
             <p className="mt-4 text-[15px] leading-relaxed text-[#5A6A7A]">
-              From Michelin-cited chef tables to beloved fast-casual brands — MOA&apos;s dining scene is a destination in itself, not an afterthought.
+              From Michelin-cited chef tables to beloved fast-casual brands MOA&apos;s dining scene is a destination in itself, not an afterthought.
             </p>
           </div>
           <div className="grid grid-cols-2 gap-6 border-t border-[#E2E8F0] pt-8">

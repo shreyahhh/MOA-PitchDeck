@@ -52,7 +52,7 @@ function OriginViz({ active }: { active: boolean }) {
         />
       </div>
       <p className="mt-8 max-w-lg text-base font-light leading-relaxed text-white/40">
-        Visitors from all 50 states and 80 countries annually — your brand reaches a genuinely global audience from a single location.
+        Visitors from all 50 states and 80 countries annually your brand reaches a genuinely global audience from a single location.
       </p>
     </motion.div>
   );
@@ -92,7 +92,7 @@ function AgeViz({ active }: { active: boolean }) {
         </div>
       ))}
       <p className="mt-6 max-w-lg text-base font-light leading-relaxed text-white/40">
-        72% are 18–54 — the peak spending demographic — making MOA one of the highest-yield retail environments in America.
+        72% are 18–54 the peak spending demographic making MOA one of the highest-yield retail environments in America.
       </p>
     </motion.div>
   );
@@ -125,7 +125,7 @@ function IncomeViz({ active }: { active: boolean }) {
         </div>
       </div>
       <p className="max-w-lg text-base font-light leading-relaxed text-white/40">
-        Premium spending demographic — MOA visitors don&apos;t browse. They buy.
+        Premium spending demographic MOA visitors don&apos;t browse. They buy.
       </p>
     </motion.div>
   );
@@ -165,7 +165,7 @@ function DwellViz({ active }: { active: boolean }) {
         </motion.div>
       ))}
       <p className="mt-4 max-w-xs text-sm font-light leading-relaxed text-white/30 md:mt-0 md:self-end md:pb-4">
-        Longest average dwell time of any US mall — more time means more exposure, more spend, more loyalty.
+        Longest average dwell time of any US mall more time means more exposure, more spend, more loyalty.
       </p>
     </motion.div>
   );
@@ -181,14 +181,14 @@ export default function WhyMOA() {
       id="why-moa"
       className="flex min-h-[100svh] flex-col overflow-hidden bg-[#06090F] px-[80px] py-[80px] max-md:px-8"
     >
-      <div ref={headRef} className="mx-auto w-full max-w-6xl flex-1 flex flex-col">
+      <div ref={headRef} className="w-full flex-1 flex flex-col">
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
           className="text-[11px] uppercase tracking-[0.36em] text-[#C8102E]"
         >
-          02 — WHY MOA
+          02 WHY MOA
         </motion.p>
 
         <motion.div

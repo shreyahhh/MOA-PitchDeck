@@ -64,14 +64,14 @@ export default function Retail() {
       {/* Header */}
       <div className="flex items-end justify-between shrink-0">
         <div>
-          <p className="text-[11px] uppercase tracking-[0.36em] text-[#C8102E]">03 — RETAIL & LEASING</p>
+          <p className="text-[11px] uppercase tracking-[0.36em] text-[#C8102E]">03 RETAIL & LEASING</p>
           <h2 className="mt-4 text-5xl font-bold tracking-[-2px] text-[#0D1F3C] md:text-[56px] leading-tight">
             Precision Leasing for Every Growth Stage
           </h2>
         </div>
       </div>
 
-      {/* Stats bar — no background, sits between header and panels */}
+      {/* Stats bar no background, sits between header and panels */}
       <div
         className="shrink-0"
         style={{
@@ -100,7 +100,7 @@ export default function Retail() {
         ))}
       </div>
 
-      {/* Panel strip — flex-1 fills remaining space */}
+      {/* Panel strip flex-1 fills remaining space */}
       <div style={{ flex: 1, marginTop: '0', minHeight: 0 }}>
         <div
           style={{

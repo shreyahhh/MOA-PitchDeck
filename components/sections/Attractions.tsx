@@ -55,7 +55,7 @@ export default function Attractions() {
             transition={{ duration: 0.6 }}
           >
             <p className="text-[11px] uppercase tracking-[0.36em] text-[#C8102E]">
-              05 — ATTRACTIONS
+              05 ATTRACTIONS
             </p>
             <h2 className="mt-4 text-5xl font-bold tracking-[-2px] text-white md:text-[56px] leading-tight">
               A City Within a City
@@ -114,7 +114,7 @@ export default function Attractions() {
 
       {/* ── RIGHT: contained media panel ── */}
       <div className="flex-1 flex flex-col min-w-0 gap-3">
-        {/* Video frame — contained, NOT full-bleed */}
+        {/* Video frame contained, NOT full-bleed */}
         <div
           className="relative flex-1 overflow-hidden"
           style={{ borderRadius: "10px" }}
@@ -149,10 +149,11 @@ export default function Attractions() {
             ) : (
               <video
                 key={s.id}
-                autoPlay
+                autoPlay={i === active}
                 muted
                 loop
                 playsInline
+                preload={i === active ? "auto" : "none"}
                 poster={s.poster}
                 style={{
                   position: "absolute",
@@ -180,7 +181,7 @@ export default function Attractions() {
             }}
           />
 
-          {/* Active slide name — bottom left of video */}
+          {/* Active slide name bottom left of video */}
           <AnimatePresence mode="wait">
             <motion.div
               key={active + "-label"}

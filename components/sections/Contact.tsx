@@ -41,15 +41,15 @@ const ctas = [
 export default function Contact() {
   return (
     <section id="contact" className="bg-white px-[80px] py-[80px] max-md:px-8">
-      <div className="mx-auto max-w-6xl">
+      <div>
 
         <div>
-          <p className="text-[11px] uppercase tracking-[0.36em] text-[#C8102E]">09 — LET&apos;S TALK</p>
+          <p className="text-[11px] uppercase tracking-[0.36em] text-[#C8102E]">09 LET&apos;S TALK</p>
           <h2 className="mt-4 text-5xl font-bold tracking-[-2px] text-[#0D1F3C] md:text-[56px]">
             Bring Your Brand<br />to America&apos;s Stage
           </h2>
           <p className="mt-3 max-w-xl text-[15px] leading-relaxed text-[#5A6A7A]">
-            Whether you&apos;re opening a flagship store, launching an activation, or booking the atrium for your next event — we&apos;re ready.
+            Whether you&apos;re opening a flagship store, launching an activation, or booking the atrium for your next event we&apos;re ready.
           </p>
         </div>
 

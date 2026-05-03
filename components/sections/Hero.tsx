@@ -151,7 +151,7 @@ export default function Hero() {
             className="mt-5 leading-relaxed text-white/55"
             style={{ fontSize: "clamp(13px, 1.2vw, 15px)", maxWidth: "480px" }}
           >
-            The most visited retail destination in the western hemisphere —
+            The most visited retail destination in the western hemisphere
             where 40 million visitors a year meet the world&apos;s greatest brands.
           </motion.p>
 

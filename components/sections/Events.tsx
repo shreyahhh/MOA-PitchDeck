@@ -1,8 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 
-// Swap src below for a dedicated events highlight reel when available
 const VIDEO_SRC = "https://www.youtube-nocookie.com/embed/5NFICD4CJh8?autoplay=1&mute=1&loop=1&controls=0&showinfo=0&rel=0&playsinline=1&playlist=5NFICD4CJh8&modestbranding=1&iv_load_policy=3";
 
 const eventTypes = [
@@ -20,18 +20,23 @@ const venues = [
 ];
 
 export default function Events() {
-  return (
-    <section id="events" className="relative h-screen overflow-hidden bg-black">
+  const sectionRef = useRef<HTMLElement>(null);
+  const isInView = useInView(sectionRef, { once: true, margin: "200px" });
 
-      {/* Background video */}
+  return (
+    <section ref={sectionRef} id="events" className="relative h-screen overflow-hidden bg-black">
+
+      {/* Background video only load iframe when section nears viewport */}
       <div className="pointer-events-none absolute inset-0 z-0">
-        <iframe
-          className="absolute left-1/2 top-1/2 h-[175%] w-[175%] -translate-x-1/2 -translate-y-1/2"
-          src={VIDEO_SRC}
-          title="Events"
-          allow="autoplay; encrypted-media"
-          loading="eager"
-        />
+        {isInView && (
+          <iframe
+            className="absolute left-1/2 top-1/2 h-[175%] w-[175%] -translate-x-1/2 -translate-y-1/2"
+            src={VIDEO_SRC}
+            title="Events"
+            allow="autoplay; encrypted-media"
+            loading="lazy"
+          />
+        )}
       </div>
 
       {/* Overlays */}
@@ -50,7 +55,7 @@ export default function Events() {
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.7 }}
           >
-            <p className="text-[11px] uppercase tracking-[0.36em] text-[#C8102E]">07 — EVENTS</p>
+            <p className="text-[11px] uppercase tracking-[0.36em] text-[#C8102E]">07 EVENTS</p>
             <h2 className="mt-4 text-5xl font-bold tracking-[-2px] text-white md:text-[56px] leading-tight">
               Host. Launch.<br />Activate.
             </h2>
