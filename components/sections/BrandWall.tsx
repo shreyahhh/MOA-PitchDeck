@@ -29,12 +29,6 @@ const luxuryVideos = [
   { name: "Prada", src: "/brand/prada.mp4" },
   { name: "Valentino", src: "/brand/valentino.mp4" },
 ];
-const carouselVideos = [
-  { name: "Nickelodeon", src: "/brand/nick.mp4" },
-  { name: "LEGO", src: "/brand/lego.mp4" },
-  { name: "M&M's", src: "/brand/mm.mp4" },
-  { name: "Toys R Us", src: "/brand/toysrus-trim.mp4" },
-];
 
 type TenantStory = {
   id: string;
@@ -246,7 +240,6 @@ function TenantSuccessStories() {
 
 export default function BrandWall() {
   // carousel state kept for easy re-enable
-  const [activeIndex] = useState(2);
   const [secondaryVideoIndex, setSecondaryVideoIndex] = useState(0);
   const secondarySectionRef = useRef<HTMLElement>(null);
   const [isSecondaryVisible, setIsSecondaryVisible] = useState(false);
