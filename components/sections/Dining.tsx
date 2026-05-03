@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 
@@ -67,7 +68,13 @@ function RestaurantTicker() {
             {restaurantGroups[idx].map(r => (
               <div key={r.name} style={{ display: "flex", alignItems: "center", gap: 8, flex: 1, minWidth: 0 }}>
                 <div style={{ width: 56, height: 56, flexShrink: 0, borderRadius: 10, background: "#ffffff", overflow: "hidden" }}>
-                  <img src={r.icon} alt={r.name} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", mixBlendMode: "multiply" }} loading="lazy" />
+                  <Image
+                    src={r.icon}
+                    alt={r.name}
+                    width={56}
+                    height={56}
+                    style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", mixBlendMode: "multiply" }}
+                  />
                 </div>
                 <span style={{ fontSize: 13, fontWeight: 600, color: "#ffffff", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{r.name}</span>
               </div>
@@ -120,7 +127,13 @@ export default function Dining() {
             return (
               <div key={src} style={{ position: "absolute", left: CX + OUTER_R * Math.sin(a) - OUTER_SIZE / 2, top: CY - OUTER_R * Math.cos(a) - OUTER_SIZE / 2, width: OUTER_SIZE, height: OUTER_SIZE }}>
                 <div className="counter-cw">
-                  <img src={src} alt="" style={{ width: "100%", height: "100%", objectFit: "contain" }} loading="lazy" />
+                  <Image
+                    src={src}
+                    alt=""
+                    width={OUTER_SIZE}
+                    height={OUTER_SIZE}
+                    style={{ width: "100%", height: "100%", objectFit: "contain" }}
+                  />
                 </div>
               </div>
             );
@@ -134,7 +147,13 @@ export default function Dining() {
             return (
               <div key={src} style={{ position: "absolute", left: CX + INNER_R * Math.sin(a) - INNER_SIZE / 2, top: CY - INNER_R * Math.cos(a) - INNER_SIZE / 2, width: INNER_SIZE, height: INNER_SIZE }}>
                 <div className="counter-ccw">
-                  <img src={src} alt="" style={{ width: "100%", height: "100%", objectFit: "contain" }} loading="lazy" />
+                  <Image
+                    src={src}
+                    alt=""
+                    width={INNER_SIZE}
+                    height={INNER_SIZE}
+                    style={{ width: "100%", height: "100%", objectFit: "contain" }}
+                  />
                 </div>
               </div>
             );
